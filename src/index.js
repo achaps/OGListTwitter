@@ -1,6 +1,6 @@
 require('dotenv').config();
 const CanvasImageProcessor = require('../lib/canvasImageProcessor');
-const TwitterClient = require('../lib/twitterClient');
+const TwitterClientSimplified = require('../lib/twitterClientSimplified');
 const path = require('path');
 
 class OGListTwitter {
@@ -8,7 +8,7 @@ class OGListTwitter {
     this.templatePath = process.env.TEMPLATE_IMAGE_PATH || './images/template/Laika OG List.png';
     this.outputDir = process.env.OUTPUT_DIRECTORY || './output';
     this.imageProcessor = new CanvasImageProcessor(this.templatePath);
-    this.twitterClient = new TwitterClient();
+    this.twitterClient = new TwitterClientSimplified();
   }
 
   async generateWelcomeImage(userData) {
@@ -66,7 +66,7 @@ class OGListTwitter {
       try {
         console.log(`Processing user: ${userData.username || userData.name}`);
 
-        const tweetText = `Welcome ${userData.name || userData.username} to the Laika OG List! 🐕✨`;
+        const tweetText = `Welcome @${userData.username} to the Laika OG List! 🐕✨`;
         const result = await this.createWelcomeTweet(userData, tweetText);
 
         results.push({
